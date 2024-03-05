@@ -1,3 +1,11 @@
 <resources>
-    <string name="launches_top_bar_title">Films</string>
+    <string name="launches_top_bar_title">Movies</string>
+    <string name="launches_movies_trending">Trending</string>
+    <string name="launches_movies_popular">Popular</string>
+    <string name="launches_movies_upcoming">Upcoming</string>
+    <string name="launches_movies_now_playing">Now Playing</string>
+    <string name="launches_movies_top_rated">Top Rated</string>
+    <string name="launches_movies_see_all">See all</string>
+    <string name="launchpad_error_message">Something went wrong</string>
+    <string name="launchpad_empty_results">No results to show</string>
 </resources>

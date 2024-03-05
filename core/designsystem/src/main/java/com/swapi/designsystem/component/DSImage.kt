@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.swapi.starwars.designsystem.R
+import com.swapi.tmdb.designsystem.R
 
 @Composable
 fun DSImage(

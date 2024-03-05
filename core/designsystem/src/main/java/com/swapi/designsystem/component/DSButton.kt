@@ -9,9 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.swapi.designsystem.theme.DSWhite
-import com.swapi.designsystem.theme.StarWarsTypography
+import androidx.compose.ui.graphics.Color
+import com.swapi.designsystem.theme.MoviesTheme
+import com.swapi.designsystem.theme.TMDBTypography
 
 @Composable
 fun DsButton(
@@ -33,14 +33,14 @@ fun DsButton(
         onClick = onClick
     ) {
         Text(
-            text = text, style = StarWarsTypography.labelMedium.copy(color = DSWhite)
+            text = text, style = TMDBTypography.labelMedium
         )
     }
 }
 
 
 @Composable
-@Preview
+@ThemePreviews
 fun DsButtonPreview() {
     DsButton(onClick = {}, text = "Test button")
 }

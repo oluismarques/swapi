@@ -1,10 +1,10 @@
 plugins {
-    alias(libs.plugins.starwars.android.feature)
-    alias(libs.plugins.starwars.android.library.compose)
+    alias(libs.plugins.tmdb.android.feature)
+    alias(libs.plugins.tmdb.android.library.compose)
 }
 
 android {
-    namespace = "com.swapi.starwars.feature.main"
+    namespace = "com.swapi.tmdb.feature.main"
 
 }
 
