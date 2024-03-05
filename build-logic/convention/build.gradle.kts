@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.swapi.starwars.buildlogic"
+group = "com.swapi.tmdb.buildlogic"
 
 // Configure the build-logic plugins to target JDK 17
 // This matches the JDK used to build the project, and is not related to what is running on device.
@@ -35,39 +35,39 @@ tasks {
 gradlePlugin {
     plugins {
         register("androidApplicationCompose") {
-            id = "starwars.android.application.compose"
+            id = "tmdb.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidApplication") {
-            id = "starwars.android.application"
+            id = "tmdb.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "starwars.android.library.compose"
+            id = "tmdb.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = "starwars.android.library"
+            id = "tmdb.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
-            id = "starwars.android.feature"
+            id = "tmdb.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidTest") {
-            id = "starwars.android.test"
+            id = "tmdb.android.test"
             implementationClass = "AndroidTestConventionPlugin"
         }
         register("androidHilt") {
-            id = "starwars.android.hilt"
+            id = "tmdb.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
         register("androidRoom") {
-            id = "starwars.android.room"
+            id = "tmdb.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
         register("jvmLibrary") {
-            id = "starwars.jvm.library"
+            id = "tmdb.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
     }

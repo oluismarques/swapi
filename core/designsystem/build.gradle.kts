@@ -1,10 +1,10 @@
 plugins {
-    alias(libs.plugins.starwars.android.library)
-    alias(libs.plugins.starwars.android.library.compose)
+    alias(libs.plugins.tmdb.android.library)
+    alias(libs.plugins.tmdb.android.library.compose)
 }
 
 android {
-    namespace = "com.swapi.starwars.designsystem"
+    namespace = "com.swapi.tmdb.designsystem"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

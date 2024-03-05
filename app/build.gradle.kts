@@ -1,19 +1,19 @@
 import com.android.build.api.dsl.ApplicationBuildType
-import swapi.starwars.StarWarsBuildType
-import swapi.starwars.configureBuildType
+import swapi.tmdb.MoviesBuildType
+import swapi.tmdb.configureBuildType
 
 
 plugins {
-    alias(libs.plugins.starwars.android.application)
-    alias(libs.plugins.starwars.android.application.compose)
-    alias(libs.plugins.starwars.android.hilt)
+    alias(libs.plugins.tmdb.android.application)
+    alias(libs.plugins.tmdb.android.application.compose)
+    alias(libs.plugins.tmdb.android.hilt)
 }
 
 android {
-    namespace = "com.swapi.starwars"
+    namespace = "com.swapi.tmdb"
 
     defaultConfig {
-        applicationId = "com.swapi.starwars"
+        applicationId = "com.swapi.tmdb"
         versionCode = 1
         versionName = "1.0"
 
@@ -24,13 +24,12 @@ android {
     }
 
 
-    configureBuildType(this, buildType = StarWarsBuildType.Release) {
+    configureBuildType(this, buildType = MoviesBuildType.Release) {
         this as ApplicationBuildType
 
         isMinifyEnabled = true
         proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
+            getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         )
     }
 
