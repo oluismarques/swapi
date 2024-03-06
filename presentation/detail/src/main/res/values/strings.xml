@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">detail</string>
+    <string name="detail_top_bar_title">Detail</string>
+
+    <string name="no_release_date">No release date.</string>
+    <string name="no_runtime">No runtime.</string>
+    <string name="no_genre">No genre.</string>
+    <string name="overview">Overview</string>
+    <string name="no_overview">No overview.</string>
+    <string name="details_runtime_text">%1$s minutes</string>
+    <string name="details_vote_count">%1$s votes</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
+    <string name="detail_something_went_wrong">Something went wrong</string>
+</resources>

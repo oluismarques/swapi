@@ -1,7 +1,7 @@
 package com.swapi.tmdb.launchpad
 
 import android.os.Parcelable
-import com.swapi.tmdb.domain.MovieItem
+import com.swapi.tmdb.domain.movie.MovieItem
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

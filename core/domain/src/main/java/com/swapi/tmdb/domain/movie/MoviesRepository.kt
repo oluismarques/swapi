@@ -1,4 +1,4 @@
-package com.swapi.tmdb.domain
+package com.swapi.tmdb.domain.movie
 
 import com.swap.util.Resource
 import kotlinx.coroutines.flow.Flow

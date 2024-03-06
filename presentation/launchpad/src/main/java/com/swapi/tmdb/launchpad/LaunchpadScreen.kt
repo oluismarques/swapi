@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import com.swapi.designsystem.component.DSMovieCard
 import com.swapi.designsystem.component.DSTopBar
 import com.swapi.designsystem.component.ThemePreviews
+import com.swapi.designsystem.theme.Dimen12
 import com.swapi.designsystem.theme.Dimen8
-import com.swapi.tmdb.domain.MovieItem
+import com.swapi.tmdb.domain.movie.MovieItem
+import com.swapi.tmdb.feature.launchpad.R
 
 
 @Composable
@@ -38,6 +40,7 @@ internal fun LaunchPadScreen(
     upcomingUiState: LaunchpadResultUiState,
     nowPlayingUiState: LaunchpadResultUiState,
     topRatedUiState: LaunchpadResultUiState,
+    navigateToDetail: (Int) -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -54,29 +57,36 @@ internal fun LaunchPadScreen(
             item {
                 MovieCollection(
                     uiState = trendingResultUiState,
-                    title = stringResource(id = R.string.launches_movies_trending)
+                    title = stringResource(id = R.string.launches_movies_trending),
+                    navigateToDetail = navigateToDetail
                 )
                 MovieCollection(
                     uiState = popularResultUiState,
-                    title = stringResource(id = R.string.launches_movies_popular)
+                    title = stringResource(id = R.string.launches_movies_popular),
+                    navigateToDetail = navigateToDetail
                 )
                 MovieCollection(
                     uiState = nowPlayingUiState,
-                    title = stringResource(id = R.string.launches_movies_now_playing)
+                    title = stringResource(id = R.string.launches_movies_now_playing),
+                    navigateToDetail = navigateToDetail
                 )
                 MovieCollection(
                     uiState = upcomingUiState,
-                    title = stringResource(id = R.string.launches_movies_upcoming)
+                    title = stringResource(id = R.string.launches_movies_upcoming),
+                    navigateToDetail = navigateToDetail
                 )
                 MovieCollection(
                     uiState = topRatedUiState,
-                    title = stringResource(id = R.string.launches_movies_top_rated)
+                    title = stringResource(id = R.string.launches_movies_top_rated),
+                    navigateToDetail = navigateToDetail
                 )
             }
         }
 
         DSTopBar(
-            onSearchClick = { }, title = stringResource(R.string.launches_top_bar_title)
+            modifier = Modifier.padding(horizontal = Dimen12),
+            onSearchClick = { },
+            title = stringResource(R.string.launches_top_bar_title),
         )
     }
 }
@@ -85,6 +95,7 @@ internal fun LaunchPadScreen(
 private fun MovieCollection(
     uiState: LaunchpadResultUiState,
     title: String,
+    navigateToDetail: (Int) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +113,7 @@ private fun MovieCollection(
             Text(text = title)
 
             TextButton(
-               onClick = {}
+                onClick = {}
             ) {
                 Text(text = stringResource(id = R.string.launches_movies_see_all))
             }
@@ -143,8 +154,10 @@ private fun MovieCollection(
             is LaunchpadResultUiState.Success -> {
                 MovieList(
                     modifier = Modifier.fillMaxWidth(),
-                    feeds = uiState.movieItems,
-                    onFeedClick = {}
+                    movieItems = uiState.movieItems,
+                    onMovieClick = {
+                        navigateToDetail.invoke(it.id)
+                    }
                 )
             }
         }
@@ -153,18 +166,18 @@ private fun MovieCollection(
 
 @Composable
 private fun MovieList(
-    feeds: List<MovieItem>,
-    onFeedClick: (MovieItem) -> Unit,
+    movieItems: List<MovieItem>,
+    onMovieClick: (MovieItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
         modifier = modifier,
     ) {
-        itemsIndexed(feeds) { index, item ->
+        itemsIndexed(movieItems) { index, item ->
             DSMovieCard(
                 modifier = Modifier.padding(end = Dimen8),
                 name = item.originalTitle,
-                onFeedClick = { },
+                onFeedClick = { onMovieClick.invoke(item) },
                 imageUrl = item.posterUrl
             )
         }
@@ -192,6 +205,7 @@ private fun LaunchPadScreenPreview() {
         popularResultUiState = LaunchpadResultUiState.Loading,
         upcomingUiState = LaunchpadResultUiState.Empty,
         nowPlayingUiState = LaunchpadResultUiState.Empty,
-        topRatedUiState = LaunchpadResultUiState.Empty
+        topRatedUiState = LaunchpadResultUiState.Empty,
+        navigateToDetail = {}
     )
 }

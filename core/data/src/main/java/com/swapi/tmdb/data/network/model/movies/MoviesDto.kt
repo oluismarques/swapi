@@ -1,8 +1,9 @@
-
-import com.swapi.tmdb.domain.MovieItem
+import com.swap.util.Constants.BASE_WIDTH_342_PATH
+import com.swap.util.Constants.BASE_WIDTH_780_PATH
+import com.swapi.tmdb.domain.movie.MovieItem
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlinx.serialization.SerialName
 @Serializable
 internal data class MoviesResponse(
     @SerialName("page")
@@ -12,7 +13,7 @@ internal data class MoviesResponse(
     @SerialName("total_pages")
     val totalPages: Int,
     @SerialName("total_results")
-    val totalResults: Int
+    val totalResults: Int,
 )
 
 @Serializable
@@ -20,7 +21,7 @@ internal data class MovieItemResponse(
     @SerialName("adult")
     val adult: Boolean,
     @SerialName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerialName("genre_ids")
     val genreIds: List<Int>,
     @SerialName("id")
@@ -34,7 +35,7 @@ internal data class MovieItemResponse(
     @SerialName("popularity")
     val popularity: Double,
     @SerialName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerialName("release_date")
     val releaseDate: String,
     @SerialName("title")
@@ -44,32 +45,32 @@ internal data class MovieItemResponse(
     @SerialName("vote_average")
     val voteAverage: Double,
     @SerialName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
 )
 
-internal fun List<MovieItemResponse>.asMovieDomainModel(): List<MovieItem> =
+internal fun List<MovieItemResponse>.asDetailDomainModel(): List<MovieItem> =
     map {
-        MovieItem(
-            id = it.id,
-            overview = it.overview,
-            releaseDate = it.releaseDate,
-            posterUrl = it.posterPath?.let { posterPath ->
-                String.format(
-                    BASE_WIDTH_342_PATH,
-                    posterPath
-                )
-            },
-            backdropUrl = it.backdropPath?.let { backdropPath ->
-                String.format(
-                    BASE_WIDTH_780_PATH,
-                    backdropPath
-                )
-            },
-            originalTitle = it.originalTitle,
-            voteAverage = it.voteAverage,
-            voteCount = it.voteCount
-        )
+        it.asDetailDomainModel()
     }
 
-const val BASE_WIDTH_342_PATH = "http://image.tmdb.org/t/p/w342%s"
-const val BASE_WIDTH_780_PATH = "http://image.tmdb.org/t/p/w780%s"
+internal fun MovieItemResponse.asDetailDomainModel(): MovieItem =
+    MovieItem(
+        id = id,
+        overview = overview,
+        releaseDate = releaseDate,
+        posterUrl = posterPath?.let { posterPath ->
+            String.format(
+                BASE_WIDTH_342_PATH,
+                posterPath
+            )
+        },
+        backdropUrl = backdropPath?.let { backdropPath ->
+            String.format(
+                BASE_WIDTH_780_PATH,
+                backdropPath
+            )
+        },
+        originalTitle = originalTitle,
+        voteAverage = voteAverage,
+        voteCount = voteCount
+    )

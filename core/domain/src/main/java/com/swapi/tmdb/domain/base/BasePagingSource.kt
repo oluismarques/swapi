@@ -3,7 +3,7 @@ package com.swapi.tmdb.domain.base
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.swap.util.TMDBException
-import com.swapi.tmdb.domain.MovieItem
+import com.swapi.tmdb.domain.movie.MovieItem
 
 private const val STARTING_PAGE_INDEX = 1
 

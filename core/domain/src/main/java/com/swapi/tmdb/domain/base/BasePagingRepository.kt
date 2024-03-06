@@ -3,7 +3,7 @@ package com.swapi.tmdb.domain.base
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.swapi.tmdb.domain.MovieItem
+import com.swapi.tmdb.domain.movie.MovieItem
 import kotlinx.coroutines.flow.Flow
 
 abstract class BasePagingRepository<T : MovieItem> {

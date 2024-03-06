@@ -2,7 +2,7 @@ package com.swapi.tmdb.data.repository
 
 import com.swapi.tmdb.data.network.service.MoviesService
 import com.swapi.tmdb.data.paging.TrendingMoviesPagingSource
-import com.swapi.tmdb.domain.MovieItem
+import com.swapi.tmdb.domain.movie.MovieItem
 import com.swapi.tmdb.domain.base.BasePagingRepository
 import com.swapi.tmdb.domain.base.BasePagingSource
 import javax.inject.Inject

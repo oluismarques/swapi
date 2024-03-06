@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.swapi.tmdb.launchpad"
+    namespace = "com.swapi.tmdb.feature.launchpad"
 
     testOptions {
         unitTests {
