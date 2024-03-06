@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation(projects.presentation.launchpad)
+    implementation(projects.presentation.detail)
 
     implementation(projects.core.data)
     implementation(projects.core.domain)

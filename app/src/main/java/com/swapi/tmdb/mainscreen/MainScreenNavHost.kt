@@ -1,6 +1,5 @@
 package com.swapi.tmdb.mainscreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.swapi.designsystem.theme.DSBackgroundLight
 import com.swapi.designsystem.theme.TMDBTypography
+import com.swapi.tmdb.feature.detail.detailScreenGraph
 import com.swapi.tmdb.launchpad.ROUTE_LAUNCHPAD
 import com.swapi.tmdb.launchpad.launchpadScreenGraph
 
@@ -23,17 +22,19 @@ const val ROUTE_DRAGONS = "ROUTE_DRAGONS"
 @Composable
 fun MainScreenNavHost(
     navController: NavHostController,
+    navigateToDetail: (Int) -> Unit,
 ) {
     NavHost(
         navController = navController,
         startDestination = ROUTE_LAUNCHPAD
     ) {
-        launchpadScreenGraph()
+        launchpadScreenGraph(
+            navigateToDetail = navigateToDetail
+        )
 
         composable(route = ROUTE_DRAGONS) {
             DummyScreen(text = "Dragons")
         }
-
     }
 }
 

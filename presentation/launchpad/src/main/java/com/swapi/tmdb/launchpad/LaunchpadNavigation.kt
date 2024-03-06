@@ -8,7 +8,9 @@ import androidx.navigation.compose.composable
 
 const val ROUTE_LAUNCHPAD = "ROUTE_LAUNCHPAD"
 
-fun NavGraphBuilder.launchpadScreenGraph() {
+fun NavGraphBuilder.launchpadScreenGraph(
+    navigateToDetail: (Int) -> Unit
+) {
     composable(route = ROUTE_LAUNCHPAD) {
         val viewModel: LaunchpadViewModel = hiltViewModel()
         val trendingResultUiState by viewModel.trendingUiState.collectAsStateWithLifecycle()
@@ -22,7 +24,8 @@ fun NavGraphBuilder.launchpadScreenGraph() {
             popularResultUiState = popularResultUiState,
             upcomingUiState = upcomingUiState,
             nowPlayingUiState = nowPlayingUiState,
-            topRatedUiState = topRatedUiState
+            topRatedUiState = topRatedUiState,
+            navigateToDetail = navigateToDetail
         )
     }
 }

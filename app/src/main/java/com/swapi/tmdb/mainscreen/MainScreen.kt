@@ -48,6 +48,7 @@ data class BottomNavItem(
 @Composable
 fun MainScreen(
     navController: NavHostController = rememberNavController(),
+    navigateToDetail: (Int) -> Unit,
 ) {
     Scaffold(
         bottomBar = {
@@ -61,6 +62,7 @@ fun MainScreen(
         ) {
             MainScreenNavHost(
                 navController = navController,
+                navigateToDetail = navigateToDetail
             )
         }
     }
@@ -119,7 +121,6 @@ private fun BottomBar(navController: NavHostController) {
                                 contentDescription = bottomNavItem.selectedIcon.toString(),
                             )
                         },
-                        // colors = customNavigationBarItemColors(),
                         interactionSource = NoRippleInteractionSource(),
                     )
                 }
@@ -129,19 +130,7 @@ private fun BottomBar(navController: NavHostController) {
 }
 
 @Composable
-private fun customNavigationBarItemColors(): NavigationBarItemColors =
-    NavigationBarItemDefaults.colors(
-        selectedIconColor = DSGray90,
-        selectedTextColor = Color.Transparent,
-        indicatorColor = White,
-        unselectedIconColor = DSGray90,
-        unselectedTextColor = Color.Transparent,
-        disabledIconColor = DSGray90,
-        disabledTextColor = Color.Transparent,
-    )
-
-@Composable
 @Preview
 private fun MainScreenPreview() {
-    MainScreen()
+    MainScreen(navigateToDetail = {})
 }

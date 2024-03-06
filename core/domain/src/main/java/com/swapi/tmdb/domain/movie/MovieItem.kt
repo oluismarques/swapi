@@ -1,4 +1,4 @@
-package com.swapi.tmdb.domain
+package com.swapi.tmdb.domain.movie
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

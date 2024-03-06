@@ -1,44 +1,66 @@
 package com.swapi.designsystem.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.swapi.tmdb.designsystem.R
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
+import coil.compose.SubcomposeAsyncImageScope
 
 @Composable
 fun DSImage(
-    @DrawableRes defaultPlaceholder: Int = R.drawable.ic_placeholder,
-    imagePath: String? = null,
-    imageSize: Dp = 40.dp,
+    modifier: Modifier = Modifier,
+    model: String? = null,
+    contentScale: ContentScale = ContentScale.Crop,
 ) {
-    Box(
-        modifier = Modifier
-            .size(imageSize),
-    ) {
-        AsyncImage(
-            model = imagePath ?: defaultPlaceholder,
-            error = painterResource(id = defaultPlaceholder),
-            placeholder = painterResource(defaultPlaceholder),
-            contentDescription = "avatarImage",
+    SubcomposeAsyncImage(
+        modifier = modifier,
+        model = model,
+        contentDescription = model,
+        contentScale = contentScale
+    ) { SubcomposeAsyncImageHandler() }
+
+}
+
+@Composable
+fun DSCardImage(
+    modifier: Modifier = Modifier,
+    model: String? = null,
+    contentScale: ContentScale = ContentScale.Crop,
+    shape: Shape = RectangleShape,
+) {
+    Card(modifier = modifier, shape = shape) {
+        DSImage(
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
+            model = model,
+            contentScale = contentScale
         )
     }
 }
 
-
 @Composable
-fun DSImagePreview() {
+private fun SubcomposeAsyncImageScope.SubcomposeAsyncImageHandler() {
+    when (painter.state) {
+        is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
+        is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
+        AsyncImagePainter.State.Empty, is AsyncImagePainter.State.Error -> Box(
+            modifier = Modifier
+                .fillMaxSize()
+        )
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun DSImagePreview() {
     DSImage(
-        imagePath = null,
-        imageSize = 40.dp,
+        model = null,
     )
 }
