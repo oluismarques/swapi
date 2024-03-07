@@ -1,5 +1,6 @@
 package com.swapi.tmdb.feature.detail
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
@@ -11,8 +12,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-
-private const val ARG_ID = "ARG_ID"
+@VisibleForTesting
+internal const val ARG_ID = "ARG_ID"
 private const val ROUTE_DETAIL_SCREEN = "ROUTE_DETAIL_SCREEN/{$ARG_ID}"
 
 internal data class DetailArgs(
