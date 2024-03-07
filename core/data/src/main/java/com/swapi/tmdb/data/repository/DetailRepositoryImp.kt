@@ -1,6 +1,6 @@
 package com.swapi.tmdb.data.repository
 
-import asDetailDomainModel
+import asDomainModel
 import com.swap.util.Resource
 import com.swap.util.fetchMovies
 import com.swapi.tmdb.data.di.IoDispatcher
@@ -16,8 +16,7 @@ internal class DetailRepositoryImp @Inject constructor(
     private val moviesService: MoviesService,
 ) : DetailRepository {
 
-
     override fun getMovieDetail(id: Int): Flow<Resource<DetailItem>> {
-        return fetchMovies(ioDispatcher) { moviesService.getMovieDetail(id).asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.getMovieDetail(id).asDomainModel() }
     }
 }

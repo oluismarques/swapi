@@ -25,6 +25,10 @@ internal class DetailViewModel @Inject constructor(
         MutableStateFlow<DetailResultUiState>(DetailResultUiState.Loading)
 
     init {
+        getMovieDetail()
+    }
+
+    private fun getMovieDetail() {
         detailRepository.getMovieDetail(detailArgs.id).onEach {
             when (it) {
                 is Resource.Error -> {

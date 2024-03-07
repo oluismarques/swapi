@@ -177,7 +177,7 @@ internal data class SpokenLanguageResponse(
     val name: String,
 )
 
-internal fun DetailResponse.asDetailDomainModel(): DetailItem =
+internal fun DetailResponse.asDomainModel(): DetailItem =
     DetailItem(
         id = id,
         overview = overview,

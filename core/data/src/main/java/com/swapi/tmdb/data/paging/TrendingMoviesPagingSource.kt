@@ -1,6 +1,6 @@
 package com.swapi.tmdb.data.paging
 
-import asDetailDomainModel
+import asDomainModel
 import com.swapi.tmdb.data.network.service.MoviesService
 import com.swapi.tmdb.domain.movie.MovieItem
 import com.swapi.tmdb.domain.base.BasePagingSource
@@ -10,5 +10,5 @@ internal class TrendingMoviesPagingSource(
 ) : BasePagingSource<MovieItem>() {
 
     override suspend fun fetchItems(page: Int): List<MovieItem> =
-        movieApi.trendingMovies(page).movieItemResponses.asDetailDomainModel()
+        movieApi.trendingMovies(page).movieItemResponses.asDomainModel()
 }

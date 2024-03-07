@@ -48,12 +48,12 @@ internal data class MovieItemResponse(
     val voteCount: Int,
 )
 
-internal fun List<MovieItemResponse>.asDetailDomainModel(): List<MovieItem> =
+internal fun List<MovieItemResponse>.asDomainModel(): List<MovieItem> =
     map {
-        it.asDetailDomainModel()
+        it.asDomainModel()
     }
 
-internal fun MovieItemResponse.asDetailDomainModel(): MovieItem =
+internal fun MovieItemResponse.asDomainModel(): MovieItem =
     MovieItem(
         id = id,
         overview = overview,

@@ -1,6 +1,6 @@
 package com.swapi.tmdb.data.repository
 
-import asDetailDomainModel
+import asDomainModel
 import com.swap.util.Resource
 import com.swap.util.fetchMovies
 import com.swapi.tmdb.data.di.IoDispatcher
@@ -17,22 +17,22 @@ internal class MoviesRepositoryImp @Inject constructor(
 ) : MoviesRepository {
 
     override fun trendingMovies(): Flow<Resource<List<MovieItem>>> {
-        return fetchMovies(ioDispatcher) { moviesService.trendingMovies().movieItemResponses.asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.trendingMovies().movieItemResponses.asDomainModel() }
     }
 
     override fun popularMovies(): Flow<Resource<List<MovieItem>>> {
-        return fetchMovies(ioDispatcher) { moviesService.popularMovies().movieItemResponses.asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.popularMovies().movieItemResponses.asDomainModel() }
     }
 
     override fun nowPlayingMovies(): Flow<Resource<List<MovieItem>>> {
-        return fetchMovies(ioDispatcher) { moviesService.nowPlayingMovies().movieItemResponses.asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.nowPlayingMovies().movieItemResponses.asDomainModel() }
     }
 
     override fun upcomingMovies(): Flow<Resource<List<MovieItem>>> {
-        return fetchMovies(ioDispatcher) { moviesService.upcomingMovies().movieItemResponses.asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.upcomingMovies().movieItemResponses.asDomainModel() }
     }
 
     override fun topRatedMovies(): Flow<Resource<List<MovieItem>>> {
-        return fetchMovies(ioDispatcher) { moviesService.topRatedMovies().movieItemResponses.asDetailDomainModel() }
+        return fetchMovies(ioDispatcher) { moviesService.topRatedMovies().movieItemResponses.asDomainModel() }
     }
 }
