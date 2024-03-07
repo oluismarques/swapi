@@ -56,7 +56,6 @@ internal fun List<MovieItemResponse>.asDomainModel(): List<MovieItem> =
 internal fun MovieItemResponse.asDomainModel(): MovieItem =
     MovieItem(
         id = id,
-        overview = overview,
         releaseDate = releaseDate,
         posterUrl = posterPath?.let { posterPath ->
             String.format(
@@ -64,13 +63,6 @@ internal fun MovieItemResponse.asDomainModel(): MovieItem =
                 posterPath
             )
         },
-        backdropUrl = backdropPath?.let { backdropPath ->
-            String.format(
-                BASE_WIDTH_780_PATH,
-                backdropPath
-            )
-        },
         originalTitle = originalTitle,
-        voteAverage = voteAverage,
-        voteCount = voteCount
+        voteAverage = voteAverage.roundToOneDecimal(),
     )

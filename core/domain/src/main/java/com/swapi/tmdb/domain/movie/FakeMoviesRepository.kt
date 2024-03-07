@@ -7,13 +7,10 @@ import kotlinx.coroutines.flow.flow
 val mockMovies = listOf(
     MovieItem(
         id = 5276,
-        overview = "Dalen",
-        releaseDate = null,
+        releaseDate = "2220/03/30",
         posterUrl = null,
-        backdropUrl = null,
         originalTitle = "Donnell",
         voteAverage = 75.027,
-        voteCount = 8802
     )
 )
 
