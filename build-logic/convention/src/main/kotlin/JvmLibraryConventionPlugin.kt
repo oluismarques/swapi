@@ -1,4 +1,4 @@
-import swapi.starwars.configureKotlinJvm
+import swapi.tmdb.configureKotlinJvm
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

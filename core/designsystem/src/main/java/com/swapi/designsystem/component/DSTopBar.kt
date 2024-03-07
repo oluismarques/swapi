@@ -1,7 +1,6 @@
 package com.swapi.designsystem.component
 
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,28 +10,31 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.swapi.designsystem.theme.DSBackgroundLight
-import com.swapi.designsystem.theme.Dimen16
 import com.swapi.designsystem.theme.Dimen24
-import com.swapi.designsystem.theme.StarWarsTypography
-import com.swapi.starwars.designsystem.R
+import com.swapi.designsystem.theme.MoviesTheme
+import com.swapi.designsystem.theme.TMDBTypography
+import com.swapi.tmdb.designsystem.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DSTopBar(
     modifier: Modifier = Modifier,
-    onFilterClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
     onBackClick: () -> Unit = {},
     showNavigationIcon: Boolean? = false,
     showActionIcon: Boolean? = true,
+    actionIcon: Int = R.drawable.ic_search,
     title: String,
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
 ) {
     CenterAlignedTopAppBar(
-        modifier = modifier.padding(horizontal = Dimen16),
-        windowInsets = WindowInsets(0),
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = DSBackgroundLight),
+        modifier = modifier,
+        windowInsets = windowInsets,
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = Color.Transparent,
+        ),
         navigationIcon = {
             if (showNavigationIcon == true) {
                 IconButton(modifier = Modifier.size(Dimen24), onClick = onBackClick) {
@@ -46,27 +48,31 @@ fun DSTopBar(
         title = {
             Text(
                 text = title,
-                style = StarWarsTypography.headlineMedium,
+                style = TMDBTypography.headlineMedium,
             )
         }, actions = {
             if (showActionIcon == true) {
-                IconButton(modifier = Modifier.size(Dimen24), onClick = onFilterClick) {
+                IconButton(modifier = Modifier.size(Dimen24), onClick = onSearchClick) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_filter),
-                        contentDescription = "filter"
+                        painter = painterResource(id = actionIcon),
+                        contentDescription = "search"
                     )
                 }
             }
         })
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
+@ThemePreviews
 fun DSTopBarPreview() {
-    DSTopBar(
-        title = "test",
-        showNavigationIcon = false,
-        onBackClick = {},
-        onFilterClick = {},
-    )
+    MoviesTheme {
+        DSTopBar(
+            onSearchClick = {},
+            onBackClick = {},
+            showNavigationIcon = false,
+            title = "test",
+            windowInsets = TopAppBarDefaults.windowInsets,
+        )
+    }
 }

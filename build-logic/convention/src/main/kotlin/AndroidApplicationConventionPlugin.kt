@@ -1,9 +1,9 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
-import swapi.starwars.configureBadgingTasks
-import swapi.starwars.configureKotlinAndroid
-import swapi.starwars.configurePrintApksTask
+import swapi.tmdb.configureBadgingTasks
+import swapi.tmdb.configureKotlinAndroid
+import swapi.tmdb.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.starwars.android.library)
-    alias(libs.plugins.starwars.android.hilt)
-    id("kotlinx-serialization")
+    alias(libs.plugins.tmdb.android.library)
+    alias(libs.plugins.tmdb.android.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.swapi.starwars.core.data"
+    namespace = "com.swapi.tmdb.core.data"
 
     buildFeatures.buildConfig = true
 
@@ -14,14 +14,25 @@ android {
             buildConfigField(
                 "String",
                 "BaseUrl",
-                "\"https://api.spacexdata.com/v3/\""
+                "\"http://api.themoviedb.org/\""
+            )
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${getProperty("local.properties", "tmdb_api_key") ?: System.getenv("API_KEY")}\""
             )
         }
         release {
             buildConfigField(
                 "String",
                 "BaseUrl",
-                "\"https://api.spacexdata.com/v3/\""
+                "\"http://api.themoviedb.org/\""
+            )
+
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${getProperty("local.properties", "tmdb_api_key") ?: System.getenv("API_KEY")}\""
             )
         }
     }
@@ -37,7 +48,9 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
+    implementation(projects.core.util)
 
+    implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
@@ -47,5 +60,16 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.serialization.json)
 
+}
+
+fun getProperty(filename: String, propName: String): String? {
+    val propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propName)
+    } else {
+        print("$filename does not exist!")
+    }
+    return null
 }

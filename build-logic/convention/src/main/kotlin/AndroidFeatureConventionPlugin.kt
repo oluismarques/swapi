@@ -1,5 +1,5 @@
 import com.android.build.gradle.LibraryExtension
-import swapi.starwars.libs
+import swapi.tmdb.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -10,8 +10,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("starwars.android.library")
-                apply("starwars.android.hilt")
+                apply("tmdb.android.library")
+                apply("tmdb.android.hilt")
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {

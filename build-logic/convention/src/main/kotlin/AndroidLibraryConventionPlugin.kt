@@ -1,6 +1,6 @@
 import com.android.build.gradle.LibraryExtension
-import swapi.starwars.configureBuildTypes
-import swapi.starwars.configureKotlinAndroid
+import swapi.tmdb.configureBuildTypes
+import swapi.tmdb.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
