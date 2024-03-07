@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.swapi.designsystem.component.DSCardImage
@@ -61,7 +62,7 @@ internal fun DetailsItem(
         ) {
 
             DSImage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().testTag("posterPath_tag"),
                 model = posterPath,
             )
 
@@ -105,7 +106,6 @@ internal fun DetailsItem(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(Dimen8)
                         ) {
-
                             IconAndText(
                                 iconResourceId = R.drawable.ic_calendar,
                                 text = releaseDate ?: stringResource(id = R.string.no_release_date)
@@ -125,9 +125,7 @@ internal fun DetailsItem(
                                     .ifEmpty { stringResource(id = R.string.no_genre) })
                         }
 
-
                         DSRatingItem(rating = voteAverage)
-
                     }
                 }
                 item {

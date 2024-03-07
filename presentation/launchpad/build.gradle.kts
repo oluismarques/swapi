@@ -25,4 +25,6 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(libs.androidx.compose.ui.test)
 }

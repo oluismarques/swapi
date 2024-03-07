@@ -14,14 +14,14 @@ val mockDetailItem = DetailItem(
     overview = "Tedrick",
     popularity = 92.198,
     posterPath = null,
-    releaseDate = null,
+    releaseDate = "2022/04/03",
     spokenLanguages = listOf(),
     status = "Jillian",
     tagline = "Marquis",
     title = "Joanie",
     voteAverage = 24.574,
     voteCount = 8081,
-    runtime = "Menachem",
+    runtime = "123",
     credits = Credits(cast = listOf(), crew = listOf())
 )
 

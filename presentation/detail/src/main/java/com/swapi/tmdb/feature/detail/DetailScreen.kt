@@ -7,10 +7,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.swapi.designsystem.component.ThemePreviews
 import com.swapi.tmdb.feature.detail.components.DetailsItem
-import kotlinx.datetime.LocalDate
 
 
 @Composable
@@ -34,13 +34,16 @@ private fun DetailsContent(
         when (uiState) {
             DetailResultUiState.Error -> {
                 Box(modifier = modifier.fillMaxSize()) {
-                    Text(text = stringResource(R.string.detail_something_went_wrong))
+                    Text(
+                        modifier = Modifier.testTag("error_tag"),
+                        text = stringResource(R.string.detail_something_went_wrong)
+                    )
                 }
             }
 
             DetailResultUiState.Loading -> {
                 Box(modifier = modifier.fillMaxSize()) {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(modifier = Modifier.testTag("loading_tag"))
                 }
             }
 
