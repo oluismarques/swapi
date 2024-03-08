@@ -22,6 +22,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.swapi.designsystem.component.DSMovieCard
@@ -127,7 +128,10 @@ private fun MovieCollection(
                         .height(100.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = stringResource(R.string.launchpad_empty_results))
+                    Text(
+                        modifier = Modifier.testTag("empty_tag"),
+                        text = stringResource(R.string.launchpad_empty_results)
+                    )
                 }
             }
 
@@ -138,7 +142,10 @@ private fun MovieCollection(
                         .height(100.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = stringResource(R.string.launchpad_error_message))
+                    Text(
+                        modifier = Modifier.testTag("error_tag"),
+                        text = stringResource(R.string.launchpad_error_message)
+                    )
                 }
             }
 
@@ -148,7 +155,7 @@ private fun MovieCollection(
                     .height(100.dp),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier.testTag("loading_tag"))
             }
 
             is LaunchpadResultUiState.Success -> {
@@ -175,10 +182,12 @@ private fun MovieList(
     ) {
         itemsIndexed(movieItems) { index, item ->
             DSMovieCard(
-                modifier = Modifier.padding(end = Dimen8),
+                modifier = Modifier.padding(end = Dimen8).testTag("movie_card_tag"),
                 name = item.originalTitle,
-                onFeedClick = { onMovieClick.invoke(item) },
-                imageUrl = item.posterUrl
+                onCardClick = { onMovieClick.invoke(item) },
+                imageUrl = item.posterUrl,
+                voteAverage = item.voteAverage.toString(),
+                releaseDate = item.releaseDate.orEmpty()
             )
         }
     }
@@ -192,13 +201,10 @@ private fun LaunchPadScreenPreview() {
             movieItems = listOf(
                 MovieItem(
                     id = 6434,
-                    overview = "Otha",
                     releaseDate = null,
                     posterUrl = null,
-                    backdropUrl = null,
                     originalTitle = "Gina",
                     voteAverage = 17.937,
-                    voteCount = 9507
                 )
             )
         ),
