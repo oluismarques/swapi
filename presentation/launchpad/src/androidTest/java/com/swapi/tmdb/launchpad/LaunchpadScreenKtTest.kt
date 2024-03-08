@@ -1,12 +1,9 @@
 package com.swapi.tmdb.launchpad
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.SemanticsNodeInteractionCollection
-import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithTag
 import com.swap.util.test.assertAreDisplayed
 import com.swap.util.test.assertExists
 import com.swap.util.test.assertHasClickAction

@@ -1,10 +1,14 @@
 package com.swapi.tmdb.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import asDomainModel
 import com.swap.util.Resource
 import com.swap.util.fetchMovies
 import com.swapi.tmdb.data.di.IoDispatcher
 import com.swapi.tmdb.data.network.service.MoviesService
+import com.swapi.tmdb.data.paging.SearchMoviePagingSource
 import com.swapi.tmdb.domain.movie.MovieItem
 import com.swapi.tmdb.domain.movie.MoviesRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -35,4 +39,12 @@ internal class MoviesRepositoryImp @Inject constructor(
     override fun topRatedMovies(): Flow<Resource<List<MovieItem>>> {
         return fetchMovies(ioDispatcher) { moviesService.topRatedMovies().movieItemResponses.asDomainModel() }
     }
+
+    override fun search(query: String): Flow<PagingData<MovieItem>> = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+        ),
+        pagingSourceFactory = { SearchMoviePagingSource(query, moviesService) }
+    ).flow
 }
+

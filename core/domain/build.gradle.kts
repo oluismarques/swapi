@@ -14,7 +14,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.common)
 
     ksp(libs.hilt.compiler)
 }
