@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -37,6 +39,7 @@ import com.swapi.designsystem.theme.DSGray10
 import com.swapi.designsystem.theme.DSGray90
 import com.swapi.designsystem.theme.Dimen1
 import com.swapi.designsystem.theme.Dimen56
+import com.swapi.search.ROUTE_SEARCH
 import com.swapi.tmdb.launchpad.ROUTE_LAUNCHPAD
 
 data class BottomNavItem(
@@ -77,9 +80,9 @@ private fun BottomBar(navController: NavHostController) {
             route = ROUTE_LAUNCHPAD,
         ),
         BottomNavItem(
-            selectedIcon = Icons.Filled.Adb,
-            unselectedIcon = Icons.Filled.Adb,
-            route = ROUTE_DRAGONS,
+            selectedIcon = Icons.Filled.Search,
+            unselectedIcon = Icons.Outlined.Search,
+            route = ROUTE_SEARCH,
         ),
     )
 

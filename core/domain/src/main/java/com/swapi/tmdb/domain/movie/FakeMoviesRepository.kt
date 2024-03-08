@@ -1,5 +1,6 @@
 package com.swapi.tmdb.domain.movie
 
+import androidx.paging.PagingData
 import com.swap.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -72,6 +73,12 @@ class FakeMoviesRepository : MoviesRepository {
             emit(Resource.Error("Failed to fetch movie detail"))
         } else {
             emit(Resource.Success(mockMovies))
+        }
+    }
+
+    override fun search(query: String): Flow<PagingData<MovieItem>> {
+        return flow {
+            emit(PagingData.empty())
         }
     }
 
