@@ -1,8 +1,10 @@
 package com.swapi.search
 
 import android.os.Parcelable
+import androidx.paging.PagingData
 import com.swapi.tmdb.domain.movie.MovieItem
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 internal sealed interface SearchResultUiState : Parcelable {
@@ -20,4 +22,7 @@ internal sealed interface SearchResultUiState : Parcelable {
 
     @Parcelize
     data object Empty : SearchResultUiState
+    @Parcelize
+    data object IsSearching : SearchResultUiState
+
 }

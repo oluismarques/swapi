@@ -2,9 +2,12 @@ package com.swapi.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.swap.util.Resource
 import com.swap.util.asMutable
+import com.swapi.tmdb.domain.movie.MovieItem
 import com.swapi.tmdb.domain.movie.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -23,6 +26,9 @@ internal class SearchViewModel @Inject constructor(
 
     val trendingUiState: StateFlow<SearchResultUiState> =
         MutableStateFlow<SearchResultUiState>(SearchResultUiState.Empty)
+
+    val searchPagingState: StateFlow<PagingData<MovieItem>> =
+        MutableStateFlow(PagingData.empty())
 
     private var searchJob: Job? = null
     fun onEvent(event: SearchEvent) = when (event) {
@@ -53,7 +59,12 @@ internal class SearchViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             trendingUiState.asMutable().emit(SearchResultUiState.Loading)
             delay(DEBOUNCE_TIME_MILLS)
-            moviesRepository.search(query).cachedIn(viewModelScope)
+            moviesRepository.search(query).cachedIn(viewModelScope).collect { result ->
+                trendingUiState.asMutable().emit(SearchResultUiState.IsSearching)
+                searchPagingState.asMutable().emit(result)
+
+
+            }
         }
     }
 

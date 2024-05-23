@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,6 +30,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.swapi.designsystem.component.DSMovieCard
 import com.swapi.designsystem.component.DSSearchTopBar
 import com.swapi.designsystem.component.ThemePreviews
@@ -35,6 +41,7 @@ import com.swapi.designsystem.theme.Dimen12
 import com.swapi.designsystem.theme.Dimen8
 import com.swapi.tmdb.domain.movie.MovieItem
 import com.swapi.tmdb.feature.search.R
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @Composable
@@ -42,10 +49,14 @@ internal fun SearchScreen(
     trendingResultUiState: SearchResultUiState,
     navigateToDetail: (Int) -> Unit,
     onQueryChange: (String) -> Unit,
+    searchPagingState: LazyPagingItems<MovieItem>,
 ) {
     var textFieldValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(text = ""))
     }
+
+    val listState = rememberLazyListState()
+
 
     Column(
         modifier = Modifier
@@ -65,35 +76,90 @@ internal fun SearchScreen(
             }
 
             item {
-                MovieCollection(
-                    uiState = trendingResultUiState,
-                    title = "tending",
-                    navigateToDetail = navigateToDetail
-                )
-//                MovieCollection(
-//                    uiState = popularResultUiState,
-//                    title = stringResource(id = R.string.launches_movies_popular),
-//                    navigateToDetail = navigateToDetail
-//                )
-//                MovieCollection(
-//                    uiState = nowPlayingUiState,
-//                    title = stringResource(id = R.string.launches_movies_now_playing),
-//                    navigateToDetail = navigateToDetail
-//                )
-//                MovieCollection(
-//                    uiState = upcomingUiState,
-//                    title = stringResource(id = R.string.launches_movies_upcoming),
-//                    navigateToDetail = navigateToDetail
-//                )
-//                MovieCollection(
-//                    uiState = topRatedUiState,
-//                    title = stringResource(id = R.string.launches_movies_top_rated),
-//                    navigateToDetail = navigateToDetail
-//                )
+                when {
+                    searchPagingState.loadState.refresh is LoadState.Loading -> {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(44.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+
+                            LaunchedEffect(true) { listState.scrollToItem(0) }
+                        }
+                    }
+
+                    searchPagingState.itemCount == 0 || searchPagingState.loadState.refresh is LoadState.Error -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(100.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                modifier = Modifier.testTag("empty_tag"),
+                                text = stringResource(R.string.search_empty_results)
+                            )
+                        }
+                    }
+
+
+                    else -> {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = Dimen8, top = Dimen8, bottom = Dimen8),
+                            verticalArrangement = Arrangement.Top
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = Dimen8),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(text = "Search results")
+
+                                TextButton(
+                                    onClick = {}
+                                ) {
+                                    Text(text = stringResource(id = R.string.search_movies_see_all))
+                                }
+                            }
+                            LazyRow(
+                                modifier = Modifier,
+                            ) {
+                                items(searchPagingState.itemCount) { index ->
+                                    val item = searchPagingState[index]
+                                    DSMovieCard(
+                                        modifier = Modifier
+                                            .padding(end = Dimen8)
+                                            .testTag("movie_card_tag"),
+                                        name = item?.originalTitle.orEmpty(),
+                                        onCardClick = { },
+                                        imageUrl = item?.posterUrl,
+                                        voteAverage = item?.voteAverage.toString(),
+                                        releaseDate = item?.releaseDate.orEmpty()
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            item {
+                if (trendingResultUiState !is SearchResultUiState.IsSearching) {
+                    MovieCollection(
+                        uiState = trendingResultUiState,
+                        title = "tending",
+                        navigateToDetail = navigateToDetail
+                    )
+                }
             }
         }
-
-
     }
 }
 
@@ -181,6 +247,8 @@ private fun MovieCollection(
                     }
                 )
             }
+
+            SearchResultUiState.IsSearching -> {}
         }
     }
 }
@@ -212,6 +280,7 @@ private fun MovieList(
 @ThemePreviews
 @Composable
 private fun SearchScreenPreview() {
+    val pagingData = MutableStateFlow(PagingData.empty<MovieItem>())
     SearchScreen(
         trendingResultUiState = SearchResultUiState.Success(
             movieItems = listOf(
@@ -224,7 +293,8 @@ private fun SearchScreenPreview() {
                 )
             )
         ),
+        navigateToDetail = {},
         onQueryChange = {},
-        navigateToDetail = {}
+        searchPagingState = pagingData.collectAsLazyPagingItems()
     )
 }

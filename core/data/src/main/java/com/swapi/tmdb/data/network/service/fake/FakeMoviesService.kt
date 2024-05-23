@@ -77,7 +77,7 @@ internal class FakeMoviesService @Inject constructor(
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    override fun search(query: String, page: Int): MoviesResponse {
+    override suspend fun search(query: String, page: Int?): MoviesResponse {
         if (shouldFail) {
             throw RuntimeException("Simulated network error")
         }

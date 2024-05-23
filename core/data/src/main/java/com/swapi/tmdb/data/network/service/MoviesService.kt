@@ -33,9 +33,9 @@ internal interface MoviesService {
     ): DetailResponse
 
     @GET("3/search/movie")
-    fun search(
-        @Query("Query") query: String,
-        @Query("page") page: Int = 20,
+    suspend fun search(
+        @Query("query") query: String,
+        @Query("page") page: Int? = null,
     ): MoviesResponse
 
 }

@@ -15,14 +15,13 @@ internal class SearchMoviePagingSource (
 ) : PagingSource<Int, MovieItem>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieItem>): Int? {
-        return null
+        return  state.anchorPosition
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieItem> {
         return try {
-            val currentPage = params.key ?: 0
+            val currentPage = params.key ?: 1
             val response = moviesService.search(query = query, page = currentPage)
-
 
             val data = response.movieItemResponses.asDomainModel()
             val endOfPaginationReached = data.isEmpty()
@@ -35,11 +34,12 @@ internal class SearchMoviePagingSource (
                 prevKey = prevPage,
                 nextKey = nextPage
             )
-
-
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
+            return LoadResult.Error(exception)
+        }
+        catch (exception: IllegalArgumentException) {
             return LoadResult.Error(exception)
         }
     }

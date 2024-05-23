@@ -15,6 +15,7 @@ interface MoviesRepository {
     fun upcomingMovies(): Flow<Resource<List<MovieItem>>>
 
     fun topRatedMovies(): Flow<Resource<List<MovieItem>>>
+
     fun search(query: String): Flow<PagingData<MovieItem>>
 
 }
