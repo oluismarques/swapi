@@ -76,6 +76,14 @@ internal class FakeMoviesService @Inject constructor(
         return assets.open(DETAIL_MOVIE_ASSET).use(networkJson::decodeFromStream)
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
+    override suspend fun search(query: String, page: Int?): MoviesResponse {
+        if (shouldFail) {
+            throw RuntimeException("Simulated network error")
+        }
+        return assets.open(DETAIL_MOVIE_ASSET).use(networkJson::decodeFromStream)
+    }
+
     companion object {
         private const val UPCOMING_MOVIES_ASSET = "upcoming_movies.json"
         private const val POPULAR_MOVIES_ASSET = "popular_movies.json"

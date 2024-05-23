@@ -1,0 +1,5 @@
+<resources>
+    <string name="search_error_message">Something went wrong</string>
+    <string name="search_empty_results">No results to show</string>
+    <string name="search_movies_see_all">See all</string>
+</resources>
