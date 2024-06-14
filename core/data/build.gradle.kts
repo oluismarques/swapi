@@ -50,7 +50,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.util)
 
-    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.common)
     implementation(libs.androidx.core.ktx)
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)

@@ -32,5 +32,10 @@ internal interface MoviesService {
         @Query("append_to_response") credits: String = "credits",
     ): DetailResponse
 
+    @GET("3/search/movie")
+    suspend fun search(
+        @Query("query") query: String,
+        @Query("page") page: Int? = null,
+    ): MoviesResponse
 
 }
